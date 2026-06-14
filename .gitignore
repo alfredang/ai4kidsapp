@@ -1,0 +1,30 @@
+# Xcode / generated project
+AI4KidsApp.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+build/
+.build/
+
+# macOS
+.DS_Store
+
+# Swift Package Manager
+.swiftpm/
+
+# Misc
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Secrets / local config
+.env
+*.p8
+.appstoreconnect/
+
+# Tooling / scratch
+.playwright-mcp/
+asc-*.png
+ExportOptions.plist

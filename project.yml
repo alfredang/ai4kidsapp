@@ -1,0 +1,48 @@
+name: AI4KidsApp
+options:
+  bundleIdPrefix: com.tertiaryinfotech
+  deploymentTarget:
+    iOS: "18.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    GENERATE_INFOPLIST_FILE: NO
+    TARGETED_DEVICE_FAMILY: "2" # iPad only
+    CODE_SIGN_STYLE: Automatic
+
+targets:
+  AI4KidsApp:
+    type: application
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources:
+      - path: App
+      - path: Models
+      - path: Services
+      - path: Components
+      - path: Views
+      - path: Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.tertiaryinfotech.ai4kids
+        INFOPLIST_FILE: App/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        DEVELOPMENT_ASSET_PATHS: ""
+        MARKETING_VERSION: "1.0"
+    scheme:
+      testTargets: []
+
+schemes:
+  AI4KidsApp:
+    build:
+      targets:
+        AI4KidsApp: all
+    run:
+      config: Debug
