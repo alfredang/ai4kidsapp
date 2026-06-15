@@ -103,7 +103,6 @@ struct ActivityCard: View {
     let activity: Activity
     let stars: Int
     let action: () -> Void
-    @State private var pressed = false
 
     var body: some View {
         Button(action: action) {
@@ -137,14 +136,8 @@ struct ActivityCard: View {
             .padding(24)
             .frame(maxWidth: .infinity, minHeight: 230, alignment: .topLeading)
             .kidCard()
-            .scaleEffect(pressed ? 0.97 : 1)
         }
-        .buttonStyle(.plain)
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in withAnimation(.spring(duration: 0.15)) { pressed = true } }
-                .onEnded { _ in withAnimation(.spring(duration: 0.2)) { pressed = false } }
-        )
+        .buttonStyle(PressableStyle())
     }
 }
 

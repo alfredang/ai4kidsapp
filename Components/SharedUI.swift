@@ -1,13 +1,24 @@
 import SwiftUI
 
+/// A springy "press" scale effect that — unlike a `DragGesture(minimumDistance: 0)`
+/// attached via `.simultaneousGesture` — does **not** swallow an enclosing
+/// `ScrollView`'s pan, so cards and buttons stay scrollable.
+struct PressableStyle: ButtonStyle {
+    var scale: CGFloat = 0.97
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? scale : 1)
+            .animation(.spring(duration: configuration.isPressed ? 0.15 : 0.2),
+                       value: configuration.isPressed)
+    }
+}
+
 /// A chunky, tappable primary button styled for small hands.
 struct KidButton: View {
     let title: String
     var systemImage: String? = nil
     var color: Color = Theme.purple
     let action: () -> Void
-
-    @State private var pressed = false
 
     var body: some View {
         Button(action: action) {
@@ -24,14 +35,8 @@ struct KidButton: View {
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
                     .fill(color))
             .softShadow()
-            .scaleEffect(pressed ? 0.94 : 1)
         }
-        .buttonStyle(.plain)
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in withAnimation(.spring(duration: 0.15)) { pressed = true } }
-                .onEnded { _ in withAnimation(.spring(duration: 0.2)) { pressed = false } }
-        )
+        .buttonStyle(PressableStyle(scale: 0.94))
     }
 }
 
