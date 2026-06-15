@@ -6,6 +6,8 @@ import SwiftUI
 struct BrainGamesView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(ProgressStore.self) private var progress
+    @Environment(\.horizontalSizeClass) private var hSize
+    private var compact: Bool { hSize == .compact }
 
     private struct Card: Identifiable { let id = UUID(); let face: String; var matched = false }
 
@@ -27,12 +29,13 @@ struct BrainGamesView: View {
                 Text("Find all the matching pairs!")
                     .font(Theme.rounded(22, .semibold))
                     .foregroundStyle(Theme.ink.opacity(0.75))
-                LazyVGrid(columns: columns, spacing: 16) {
+                LazyVGrid(columns: columns, spacing: compact ? 10 : 16) {
                     ForEach(Array(cards.enumerated()), id: \.element.id) { index, card in
                         cardView(card, index: index)
                     }
                 }
                 .frame(maxWidth: 560)
+                .padding(.horizontal, compact ? 8 : 0)
                 Text("Moves: \(moves)")
                     .font(Theme.rounded(20, .bold)).foregroundStyle(Theme.ink.opacity(0.7))
                 KidButton(title: "New Game", systemImage: "shuffle", color: Theme.green) { deal() }
@@ -68,13 +71,15 @@ struct BrainGamesView: View {
                     .fill(isUp ? Color.white : Theme.purple)
                     .softShadow()
                 if isUp {
-                    Text(card.face).font(.system(size: 52))
+                    Text(card.face).font(.system(size: compact ? 40 : 52))
                 } else {
                     Image(systemName: "questionmark")
-                        .font(.system(size: 36, weight: .heavy)).foregroundStyle(.white)
+                        .font(.system(size: compact ? 28 : 36, weight: .heavy)).foregroundStyle(.white)
                 }
             }
-            .frame(width: 110, height: 110)
+            .frame(maxWidth: compact ? .infinity : 110)
+            .frame(height: compact ? nil : 110)
+            .aspectRatio(compact ? 1 : nil, contentMode: .fit)
             .opacity(card.matched ? 0.45 : 1)
             .rotation3DEffect(.degrees(isUp ? 0 : 180), axis: (x: 0, y: 1, z: 0))
             .animation(.easeInOut(duration: 0.25), value: isUp)

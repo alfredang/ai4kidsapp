@@ -6,6 +6,8 @@ import SwiftUI
 struct PhonicsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(ProgressStore.self) private var progress
+    @Environment(\.horizontalSizeClass) private var hSize
+    private var compact: Bool { hSize == .compact }
 
     /// A letter and the emoji/word that starts with it.
     private struct Item: Equatable { let letter: String; let emoji: String; let word: String }
@@ -43,20 +45,21 @@ struct PhonicsView: View {
                 topBar
                 Spacer()
                 Text("Which one starts with…")
-                    .font(Theme.rounded(26, .semibold))
+                    .font(Theme.rounded(compact ? 20 : 26, .semibold))
                     .foregroundStyle(Theme.ink.opacity(0.7))
                 Text(target.letter)
-                    .font(.system(size: 160, weight: .black, design: .rounded))
+                    .font(.system(size: compact ? 110 : 160, weight: .black, design: .rounded))
                     .foregroundStyle(Theme.pink)
-                    .frame(width: 220, height: 220)
+                    .frame(width: compact ? 160 : 220, height: compact ? 160 : 220)
                     .background(Circle().fill(.white))
                     .softShadow()
                 Spacer()
-                HStack(spacing: 24) {
+                HStack(spacing: compact ? 12 : 24) {
                     ForEach(choices, id: \.word) { item in
                         choiceButton(item)
                     }
                 }
+                .padding(.horizontal, compact ? 16 : 0)
                 Spacer()
             }
             .padding(28)
@@ -84,10 +87,15 @@ struct PhonicsView: View {
             pick(item)
         } label: {
             VStack(spacing: 8) {
-                Text(item.emoji).font(.system(size: 96))
-                Text(item.word).font(Theme.rounded(22, .bold)).foregroundStyle(Theme.ink)
+                Text(item.emoji).font(.system(size: compact ? 60 : 96))
+                Text(item.word)
+                    .font(Theme.rounded(compact ? 16 : 22, .bold))
+                    .foregroundStyle(Theme.ink)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
             }
-            .frame(width: 180, height: 200)
+            .frame(maxWidth: compact ? .infinity : 180)
+            .frame(height: compact ? 150 : 200)
             .kidCard()
             .overlay(
                 RoundedRectangle(cornerRadius: Theme.cardCornerRadius, style: .continuous)

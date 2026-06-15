@@ -7,6 +7,8 @@ import SwiftUI
 struct StoryBuilderView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(ProgressStore.self) private var progress
+    @Environment(\.horizontalSizeClass) private var hSize
+    private var compact: Bool { hSize == .compact }
 
     private struct Choice: Identifiable, Equatable { let id = UUID(); let emoji: String; let name: String }
 
@@ -80,38 +82,53 @@ struct StoryBuilderView: View {
 
     private func row(title: String, items: [Choice], selection: Binding<Choice?>) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(title).font(Theme.rounded(24, .heavy)).foregroundStyle(Theme.ink)
-            HStack(spacing: 16) {
-                ForEach(items) { item in
-                    let isOn = selection.wrappedValue == item
-                    Button { selection.wrappedValue = item } label: {
-                        VStack(spacing: 4) {
-                            Text(item.emoji).font(.system(size: 56))
-                            Text(item.name).font(Theme.rounded(15, .bold)).foregroundStyle(Theme.ink)
-                        }
-                        .frame(width: 120, height: 120)
-                        .background(RoundedRectangle(cornerRadius: 22, style: .continuous)
-                            .fill(isOn ? Theme.orange.opacity(0.22) : .white))
-                        .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous)
-                            .stroke(isOn ? Theme.orange : .clear, lineWidth: 4))
-                        .softShadow()
-                    }
-                    .buttonStyle(.plain)
+            Text(title).font(Theme.rounded(compact ? 20 : 24, .heavy)).foregroundStyle(Theme.ink)
+            if compact {
+                // Wrap onto multiple rows so four choices fit a phone's width.
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 84), spacing: 12)],
+                          alignment: .leading, spacing: 12) {
+                    ForEach(items) { item in choiceTile(item, selection: selection) }
+                }
+            } else {
+                HStack(spacing: 16) {
+                    ForEach(items) { item in choiceTile(item, selection: selection) }
                 }
             }
         }
     }
 
+    private func choiceTile(_ item: Choice, selection: Binding<Choice?>) -> some View {
+        let isOn = selection.wrappedValue == item
+        return Button { selection.wrappedValue = item } label: {
+            VStack(spacing: 4) {
+                Text(item.emoji).font(.system(size: compact ? 42 : 56))
+                Text(item.name)
+                    .font(Theme.rounded(compact ? 13 : 15, .bold))
+                    .foregroundStyle(Theme.ink)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+            }
+            .frame(maxWidth: compact ? .infinity : 120)
+            .frame(height: compact ? 96 : 120)
+            .background(RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(isOn ? Theme.orange.opacity(0.22) : .white))
+            .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .stroke(isOn ? Theme.orange : .clear, lineWidth: 4))
+            .softShadow()
+        }
+        .buttonStyle(.plain)
+    }
+
     private var readerStage: some View {
         VStack(spacing: 24) {
             Text("\(hero!.emoji)\(place!.emoji)\(object!.emoji)")
-                .font(.system(size: 80))
+                .font(.system(size: compact ? 56 : 80))
             Text(pages[pageIndex])
-                .font(Theme.rounded(30, .semibold))
+                .font(Theme.rounded(compact ? 22 : 30, .semibold))
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity, minHeight: 220)
-                .padding(28)
+                .frame(maxWidth: .infinity, minHeight: compact ? 160 : 220)
+                .padding(compact ? 20 : 28)
                 .kidCard()
             HStack(spacing: 16) {
                 Text("Page \(pageIndex + 1) of \(pages.count)")

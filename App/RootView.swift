@@ -5,11 +5,18 @@ import SwiftUI
 /// activity full-screen.
 struct RootView: View {
     @Environment(ProgressStore.self) private var progress
+    @Environment(\.horizontalSizeClass) private var hSize
     @State private var selected: Activity?
     @State private var showParents = false
 
-    private let columns = [GridItem(.flexible(), spacing: 24),
-                           GridItem(.flexible(), spacing: 24)]
+    /// iPhone (and Split View) report a compact width; full-screen iPad is regular.
+    private var compact: Bool { hSize == .compact }
+
+    private var columns: [GridItem] {
+        compact
+            ? [GridItem(.flexible(), spacing: 16)]
+            : [GridItem(.flexible(), spacing: 24), GridItem(.flexible(), spacing: 24)]
+    }
 
     var body: some View {
         ZStack {
@@ -26,9 +33,9 @@ struct RootView: View {
                             }
                         }
                     }
-                    .padding(.horizontal, 8)
+                    .padding(.horizontal, compact ? 0 : 8)
                 }
-                .padding(28)
+                .padding(compact ? 18 : 28)
                 .frame(maxWidth: 900)
                 .frame(maxWidth: .infinity)
             }
@@ -53,11 +60,15 @@ struct RootView: View {
         HStack(alignment: .center) {
             VStack(alignment: .leading, spacing: 4) {
                 Text("AI4Kids")
-                    .font(Theme.display(56))
+                    .font(Theme.display(compact ? 38 : 56))
                     .foregroundStyle(Theme.purple)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
                 Text("Play. Learn. Create.")
-                    .font(Theme.rounded(22, .semibold))
+                    .font(Theme.rounded(compact ? 16 : 22, .semibold))
                     .foregroundStyle(Theme.ink.opacity(0.7))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
             }
             Spacer()
             StarBadge(count: progress.totalStars)

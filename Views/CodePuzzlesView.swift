@@ -6,6 +6,8 @@ import SwiftUI
 struct CodePuzzlesView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(ProgressStore.self) private var progress
+    @Environment(\.horizontalSizeClass) private var hSize
+    private var compact: Bool { hSize == .compact }
 
     private enum Step: String, CaseIterable { case up = "↑", down = "↓", left = "←", right = "→" }
     private struct Level { let size: Int; let start: (Int, Int); let goal: (Int, Int); let walls: Set<[Int]> }
@@ -79,13 +81,14 @@ struct CodePuzzlesView: View {
         let isRobot = robot == (x, y)
         let isGoal = level.goal == (x, y)
         let isWall = level.walls.contains([x, y])
+        let side: CGFloat = compact ? 52 : 64
         return ZStack {
             RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .fill(isWall ? Theme.ink.opacity(0.8) : Theme.blue.opacity(0.12))
-            if isGoal { Text("⭐️").font(.system(size: 40)) }
-            if isRobot { Text("🤖").font(.system(size: 40)) }
+            if isGoal { Text("⭐️").font(.system(size: side * 0.6)) }
+            if isRobot { Text("🤖").font(.system(size: side * 0.6)) }
         }
-        .frame(width: 64, height: 64)
+        .frame(width: side, height: side)
     }
 
     private var programBar: some View {
@@ -113,8 +116,8 @@ struct CodePuzzlesView: View {
                 ForEach(Step.allCases, id: \.self) { step in
                     Button { if !running { program.append(step) } } label: {
                         Text(step.rawValue)
-                            .font(Theme.rounded(34, .heavy)).foregroundStyle(.white)
-                            .frame(width: 70, height: 70)
+                            .font(Theme.rounded(compact ? 28 : 34, .heavy)).foregroundStyle(.white)
+                            .frame(width: compact ? 58 : 70, height: compact ? 58 : 70)
                             .background(Circle().fill(Theme.blue)).softShadow()
                     }.buttonStyle(.plain)
                 }
