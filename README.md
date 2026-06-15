@@ -4,9 +4,9 @@
 
 # AI4Kids
 
-### A native iPad activity app where kids play, learn, and create — fully offline, no logins, no data collection.
+### A native iPhone & iPad activity app where kids play, learn, and create — fully offline, no logins, no data collection.
 
-[![Platform](https://img.shields.io/badge/platform-iPadOS%2018%2B-007AFF?logo=apple&logoColor=white)](https://www.apple.com/ipados/)
+[![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20iPadOS%2018%2B-007AFF?logo=apple&logoColor=white)](https://www.apple.com/ios/)
 [![Swift](https://img.shields.io/badge/Swift-6.0-F05138?logo=swift&logoColor=white)](https://swift.org)
 [![SwiftUI](https://img.shields.io/badge/SwiftUI-native-0A84FF?logo=swift&logoColor=white)](https://developer.apple.com/xcode/swiftui/)
 [![App Store](https://img.shields.io/badge/App%20Store-In%20Review-blue?logo=appstore&logoColor=white)](https://appstoreconnect.apple.com)
@@ -20,7 +20,7 @@ Inspired by the [AI Kids Academy](https://ai4kids.tertiarycourses.com.sg/) progr
 
 ## ✨ Overview
 
-**AI4Kids** is a bright, friendly **iPad-only** app for young learners (ages 4–16). It bundles four self-contained learning activities that run **entirely on-device** — no internet, no accounts, no ads, and **no data collection** — so children can explore safely on their own and parents can relax.
+**AI4Kids** is a bright, friendly **universal app (iPhone + iPad)** for young learners (ages 4–16), with layouts that adapt to each screen size. It bundles four self-contained learning activities that run **entirely on-device** — no internet, no accounts, no ads, and **no data collection** — so children can explore safely on their own and parents can relax.
 
 <div align="center">
 <img src="docs/screenshots/home.png" width="640" alt="AI4Kids home screen" />
