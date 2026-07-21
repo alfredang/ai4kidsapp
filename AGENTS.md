@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## What this is
 
@@ -14,7 +14,7 @@ Four on-device activities:
 - **Phonics Playground** — tap the picture that starts with the shown letter.
 - **Story Builder** — pick a hero/place/object; the app weaves an illustrated story.
 - **Code Puzzles** — sequence direction steps to walk a robot to the goal (algorithmic thinking).
-- **Brain Arcade** — eight quick solo card games (SwiftUI port of the Android arcade's solo subset).
+- **Brain Games** — emoji pair-matching.
 
 Progress is a simple star tally persisted locally in `UserDefaults` via
 [Services/ProgressStore.swift](Services/ProgressStore.swift) — no SwiftData, no CloudKit.
@@ -55,7 +55,7 @@ SwiftUI Views (one per activity) ─> ProgressStore (@Observable, UserDefaults)
 RootView (home grid) ─> fullScreenCover ─> activity views
 ```
 
-- `App/` — entry point, `RootView` (home grid + Parents' Corner behind `Views/ParentalGate.swift`), `Theme` (kid palette + helpers).
+- `App/` — entry point, `RootView` (home grid + Parents' Corner), `Theme` (kid palette + helpers).
 - `Models/Activity.swift` — the four activities and their card metadata.
 - `Services/ProgressStore.swift` — the single `@Observable` injected into the environment; **only** place that persists.
 - `Components/SharedUI.swift` — `KidButton`, `StarBadge`, `CelebrationView`, `CloseButton`.
@@ -69,5 +69,5 @@ RootView (home grid) ─> fullScreenCover ─> activity views
 
 ## App Store submission
 
-Driven by the bundled `app-store-submission` skill (`.claude/skills/`) + the App Store
+Driven by the bundled `app-store-submission` skill (`.Codex/skills/`) + the App Store
 Connect API key in `.env` (gitignored). See the skill's SKILL.md for the full flow.

@@ -104,6 +104,7 @@ python3 scripts/asc_submit.py set-metadata           # copyright, privacyPolicyU
 python3 scripts/asc_submit.py review-contact         # App Review contact (required)
 python3 scripts/asc_submit.py attach-build  --build 2
 python3 scripts/asc_submit.py screenshots   --type APP_IPAD_PRO_3GEN_129 a.png b.png
+python3 scripts/asc_submit.py availability           # make app available for sale (all territories)
 python3 scripts/asc_submit.py submit                 # create review submission + submit
 ```
 
@@ -111,6 +112,24 @@ python3 scripts/asc_submit.py submit                 # create review submission 
 `submit` creates a `reviewSubmission`, adds the version as a `reviewSubmissionItem`, then
 PATCHes `submitted=true`. On success the version state becomes `WAITING_FOR_REVIEW`. The
 command prints any blocker codes returned in `associatedErrors`.
+
+### 3b. Make the app available for sale (so it actually goes live)
+**A brand-new app has NO availability configured by default.** Even after review approval
+(version `READY_FOR_SALE`) the Apps list shows **"Removed from App Store"** and nothing is
+purchasable — because there is no `appAvailabilityV2` resource and no territories are enabled.
+Run **once per app** (idempotent — safe to re-run; reports coverage if already set):
+
+```bash
+python3 scripts/asc_submit.py availability                       # all 175 territories
+python3 scripts/asc_submit.py availability --territories USA,SGP # specific territories only
+python3 scripts/asc_submit.py availability --no-new-territories  # don't auto-add future territories
+```
+
+It POSTs `/v2/appAvailabilities` with inline-created `territoryAvailabilities`. **Gotcha:**
+inline `included` ids must use the local-id syntax `${USA}`, not a literal id like `USA`
+(else `409 ENTITY_ERROR.INCLUDED.INVALID_ID`). Run this **before or right after** approval;
+do it before `submit` and the app goes live the moment review passes. Pricing must already be
+set (a free or paid price schedule) or availability alone won't make it purchasable.
 
 ### 4. CloudKit Production schema deploy (if the app uses CloudKit/SwiftData+CloudKit)
 **Not a review blocker, but ships broken sync if skipped.** App Store builds use the
@@ -141,6 +160,11 @@ review the Development→Production diff and **Deploy**.
   [scripts/make_iphone_screenshot.swift](scripts/make_iphone_screenshot.swift) frames an
   existing iPad capture on a branded gradient so it looks intentional, not letterboxed.
   Harmless for an iPad-only listing (the binary still determines device compatibility).
+- **Approved but shows "Removed from App Store" / not on the store.** The version is
+  `READY_FOR_SALE` but the app was never made available because no `appAvailabilityV2`
+  exists (true for every brand-new app until you set it). Fix with
+  `python3 scripts/asc_submit.py availability` (see step 3b). Not a review blocker — the
+  app passes review and silently stays unavailable until availability is configured.
 - **A stale earlier build keeps the app "universal."** If build 1 was uploaded universal
   (before you set `TARGETED_DEVICE_FAMILY=2`) and is still `VALID`, expire it
   (`PATCH /v1/builds/{id}` `expired=true`) so it stops influencing device support.

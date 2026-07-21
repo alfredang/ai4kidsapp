@@ -10,29 +10,29 @@ JWT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 TOK = subprocess.run(["swift", JWT], capture_output=True, text=True).stdout.strip()
 AID = os.environ["ASC_APP_ID"]
 
-SUBTITLE = "Fun AI learning for kids"
-PROMO = ("Four playful, fully offline learning activities for kids — phonics, story "
-         "building, coding puzzles, and brain games. No ads, no logins, totally kid-safe.")
-KEYWORDS = ("kids,learning,phonics,abc,coding,puzzle,story,memory,educational,"
-            "preschool,brain,games,toddler")
-DESCRIPTION = """AI4Kids is a bright, friendly iPad app that lets children play and learn through four hands-on activities — inspired by the AI Kids Academy programme. Everything runs fully offline, with no login, no ads, and no data collection, so kids can explore safely on their own.
+SUBTITLE = "Offline learning activities"
+PROMO = ("Four playful, fully offline learning activities: phonics, story building, "
+         "coding puzzles, and matching fun. No ads, no logins, no data collection.")
+KEYWORDS = ("kids,learning,phonics,abc,coding,puzzle,story,educational,"
+            "preschool,brain,games,offline")
+DESCRIPTION = """AI4Kids is a bright, friendly app where children play and learn through four hands-on activities. Everything runs fully offline, with no login, no ads, and no data collection, so families can use it safely at home, in class, or on the go.
 
 FOUR WAYS TO PLAY & LEARN
 
 • Phonics Playground (ages 4–6) — Tap the picture that begins with the shown letter and build early reading skills with letters and sounds.
 
-• Story Builder (ages 7–9) — Pick a hero, a magical place, and a special object, then watch your very own illustrated story come to life, page by page.
+• Story Builder (ages 7–9) — Pick a hero, a magical place, and a special object, then read a short story created from those choices, page by page.
 
 • Code Puzzles (ages 10–12) — Plan a sequence of steps to guide a robot to the star. A gentle, screen-free-feeling introduction to coding and logical thinking.
 
-• Brain Games (all ages) — Flip cards to find matching pairs and grow memory, focus, and concentration.
+• Brain Games (all ages) — Flip cards to find matching pairs and grow focus, attention, and concentration.
 
 WHY PARENTS LOVE IT
 
 • Completely offline — works anywhere, no internet needed
 • No accounts, no sign-ups, no ads, no in-app purchases
 • No data collected — a built-in Parents' Corner explains everything
-• Designed for iPad with big, colourful, easy-to-tap controls
+• Big, colourful, easy-to-tap controls for iPhone and iPad
 • Earn stars and celebrate every win
 
 AI4Kids turns screen time into playful learning time. Download it and let the adventures begin!"""
@@ -79,3 +79,14 @@ s, b = call("PATCH", f"/v1/appInfos/{info_id}",
     {"data": {"type": "appInfos", "id": info_id, "relationships": {
         "primaryCategory": {"data": {"type": "appCategories", "id": "EDUCATION"}}}}})
 print("primary category EDUCATION:", s, "" if s < 300 else json.dumps(b)[:400])
+
+# --- Made for Kids age band ---
+s, infos = call("GET", f"/v1/apps/{AID}/appInfos")
+info_id = infos["data"][0]["id"]
+s, age = call("GET", f"/v1/appInfos/{info_id}/ageRatingDeclaration")
+if s < 300:
+    age_id = age["data"]["id"]
+    s, b = call("PATCH", f"/v1/ageRatingDeclarations/{age_id}",
+        {"data": {"type": "ageRatingDeclarations", "id": age_id,
+                  "attributes": {"kidsAgeBand": "SIX_TO_EIGHT"}}})
+    print("kids age band SIX_TO_EIGHT:", s, "" if s < 300 else json.dumps(b)[:400])

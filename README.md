@@ -33,7 +33,7 @@ Inspired by the [AI Kids Academy](https://ai4kids.tertiarycourses.com.sg/) progr
 | 🔤 | **Phonics Playground** | 4–6 | Tap the picture that starts with the shown letter — builds letter/sound recognition. |
 | 📖 | **Story Builder** | 7–9 | Pick a hero, a place, and a magic item; the app weaves an illustrated story, page by page. |
 | 🧩 | **Code Puzzles** | 10–12 | Sequence direction steps to walk a robot to the star — a gentle intro to algorithmic thinking. |
-| 🧠 | **Brain Games** | All | Flip cards to find matching pairs — memory, focus, and concentration. |
+| 🕹 | **Brain Arcade** | All | Eight quick solo card games — matching, memory, sums and sorting fun. |
 
 Every win earns ⭐️ stars, tracked locally and celebrated with confetti.
 
@@ -41,7 +41,7 @@ Every win earns ⭐️ stars, tracked locally and celebrated with confetti.
 <img src="docs/screenshots/phonics.png" width="245" alt="Phonics Playground" />
 <img src="docs/screenshots/story.png" width="245" alt="Story Builder" />
 <img src="docs/screenshots/code.png" width="245" alt="Code Puzzles" />
-<img src="docs/screenshots/brain.png" width="245" alt="Brain Games" />
+<img src="docs/screenshots/brain.png" width="245" alt="Brain Arcade" />
 </div>
 
 ## 🔒 Privacy
@@ -51,7 +51,8 @@ AI4Kids is designed to be **kid-safe by construction**:
 - **No network access** — every activity is fully offline.
 - **No accounts, no sign-ups, no ads, no in-app purchases.**
 - **No data collected** — progress (just a star tally) lives on-device in `UserDefaults`.
-- A built-in **Parents' Corner** explains the no-data stance and can reset progress.
+- A built-in **Parents' Corner** explains the no-data stance and can reset progress —
+  guarded by a **parental gate** (a grown-ups-only math challenge, as in the Android app).
 - App Store privacy label: **Data Not Collected**. App Privacy manifest (`PrivacyInfo.xcprivacy`) declares no tracking and no collected data types.
 
 ## 🏗 Architecture

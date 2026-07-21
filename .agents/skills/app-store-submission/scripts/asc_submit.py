@@ -186,6 +186,53 @@ def cmd_screenshots(a):
         print("  uploaded", name, s)
 
 
+def cmd_availability(a):
+    """Make the app available for sale in all (or given) territories.
+
+    A new app with no availability configured shows as 'Removed from App Store'
+    even after the version is READY_FOR_SALE. This creates the appAvailabilityV2
+    resource so the approved version actually goes live. Idempotent: if
+    availability already exists it just reports the current coverage.
+    """
+    tok = token(); aid = app_id(tok)
+    # which territories to enable: --territories USA,SGP,... or all 175
+    if a.territories:
+        ids = [t.strip() for t in a.territories.split(",") if t.strip()]
+    else:
+        s, d = jget("GET", "/v1/territories?limit=200", tok)
+        ids = [t["id"] for t in d["data"]]
+
+    # already configured?
+    s, _ = jget("GET", f"/v2/appAvailabilities/{aid}", tok)
+    if s < 300:
+        s, d = jget("GET", f"/v2/appAvailabilities/{aid}/territoryAvailabilities?limit=200", tok)
+        avail = [t for t in d.get("data", []) if t["attributes"].get("available")]
+        print(f"availability already configured: {len(avail)}/{len(d.get('data', []))} territories available")
+        return
+
+    # inline-create with local ids in the required ${...} format
+    included = [{
+        "type": "territoryAvailabilities",
+        "id": f"${{{tid}}}",
+        "attributes": {"available": True},
+        "relationships": {"territory": {"data": {"type": "territories", "id": tid}}}
+    } for tid in ids]
+    body = {"data": {
+        "type": "appAvailabilities",
+        "attributes": {"availableInNewTerritories": not a.no_new_territories},
+        "relationships": {
+            "app": {"data": {"type": "apps", "id": aid}},
+            "territoryAvailabilities": {"data": [
+                {"type": "territoryAvailabilities", "id": f"${{{t}}}"} for t in ids]}}},
+        "included": included}
+    s, b = call("POST", "/v2/appAvailabilities", body, tok)
+    if s < 300:
+        print(f"availability created: {len(ids)} territories enabled (availableInNewTerritories="
+              f"{not a.no_new_territories})")
+    else:
+        print("availability failed:", s, b[:500])
+
+
 def cmd_submit(a):
     tok = token(); aid = app_id(tok)
     v = latest_version(tok, aid); vid = v["id"]
@@ -227,10 +274,15 @@ def main():
     sc = sub.add_parser("screenshots")
     sc.add_argument("--type", required=True, help="e.g. APP_IPAD_PRO_3GEN_129, APP_IPHONE_65")
     sc.add_argument("files", nargs="+")
+    av = sub.add_parser("availability", help="make app available for sale (fixes 'Removed from App Store')")
+    av.add_argument("--territories", help="comma-separated territory ids (default: all 175)")
+    av.add_argument("--no-new-territories", action="store_true",
+                    help="do NOT auto-enable future App Store territories")
     sub.add_parser("submit")
     a = p.parse_args()
     {"status": cmd_status, "set-metadata": cmd_set_metadata, "review-contact": cmd_review_contact,
-     "attach-build": cmd_attach_build, "screenshots": cmd_screenshots, "submit": cmd_submit}[a.cmd](a)
+     "attach-build": cmd_attach_build, "screenshots": cmd_screenshots,
+     "availability": cmd_availability, "submit": cmd_submit}[a.cmd](a)
 
 
 if __name__ == "__main__":

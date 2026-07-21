@@ -8,6 +8,7 @@ struct RootView: View {
     @Environment(\.horizontalSizeClass) private var hSize
     @State private var selected: Activity?
     @State private var showParents = false
+    @State private var gatePassed = false
 
     /// iPhone (and Split View) report a compact width; full-screen iPad is regular.
     private var compact: Bool { hSize == .compact }
@@ -44,7 +45,21 @@ struct RootView: View {
             ActivityHost(activity: activity)
         }
         .sheet(isPresented: $showParents) {
-            ParentsCornerView()
+            if gatePassed {
+                ParentsCornerView()
+            } else {
+                // Parental gate before the grown-ups area (it holds the progress
+                // reset) — same math-challenge gate as the Android app. The gate
+                // re-arms every time the sheet is opened.
+                ParentalGate(
+                    title: "Grown-ups only",
+                    message: "The Parents' Corner explains AI4Kids' privacy approach and can " +
+                        "reset all progress. A parent or guardian: please confirm by solving " +
+                        "the problem below.",
+                    confirmLabel: "I'm a grown-up — continue",
+                    onConsent: { gatePassed = true }
+                )
+            }
         }
         .onAppear {
             // Optional launch hook (`-open phonics|story|code|brain`) used to deep-link
@@ -72,7 +87,7 @@ struct RootView: View {
             }
             Spacer()
             StarBadge(count: progress.totalStars)
-            Button { showParents = true } label: {
+            Button { gatePassed = false; showParents = true } label: {
                 Image(systemName: "person.2.fill")
                     .font(.system(size: 22, weight: .bold))
                     .foregroundStyle(Theme.ink)
@@ -93,7 +108,7 @@ private struct ActivityHost: View {
         case .phonics: PhonicsView()
         case .story:   StoryBuilderView()
         case .code:    CodePuzzlesView()
-        case .brain:   BrainGamesView()
+        case .brain:   BrainArcadeView()
         }
     }
 }

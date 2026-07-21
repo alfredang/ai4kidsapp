@@ -16,7 +16,7 @@ enum Activity: String, CaseIterable, Identifiable, Sendable {
         case .phonics: return "Phonics Playground"
         case .story:   return "Story Builder"
         case .code:    return "Code Puzzles"
-        case .brain:   return "Brain Games"
+        case .brain:   return "Brain Arcade"
         }
     }
 
@@ -26,7 +26,7 @@ enum Activity: String, CaseIterable, Identifiable, Sendable {
         case .phonics: return "Match letters & sounds"
         case .story:   return "Make your own story"
         case .code:    return "Solve coding puzzles"
-        case .brain:   return "Memory & matching fun"
+        case .brain:   return "8 quick card games"
         }
     }
 
@@ -36,7 +36,7 @@ enum Activity: String, CaseIterable, Identifiable, Sendable {
         case .phonics: return "textformat.abc"
         case .story:   return "books.vertical.fill"
         case .code:    return "puzzlepiece.fill"
-        case .brain:   return "brain.head.profile"
+        case .brain:   return "gamecontroller.fill"
         }
     }
 
