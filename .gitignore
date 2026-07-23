@@ -28,3 +28,4 @@ build/
 .playwright-mcp/
 asc-*.png
 ExportOptions.plist
+__pycache__/

@@ -107,6 +107,7 @@ private struct ActivityHost: View {
         switch activity {
         case .phonics: PhonicsView()
         case .story:   StoryBuilderView()
+        case .buddy:   TalkingBuddyView()
         case .code:    CodePuzzlesView()
         case .brain:   BrainArcadeView()
         }
