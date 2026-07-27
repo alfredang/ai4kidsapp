@@ -10,10 +10,13 @@ learners (ages 4–16), inspired by the AI Kids Academy programme
 concurrency** and `@MainActor` isolation. Everything runs **fully offline** — no login,
 no accounts, no network access, and **no data collection** (kid-safe / COPPA-friendly).
 
-Four on-device activities:
-- **Phonics Playground** — tap the picture that starts with the shown letter.
-- **Story Builder** — pick a hero/place/object; the app weaves an illustrated story.
-- **Code Puzzles** — sequence direction steps to walk a robot to the goal (algorithmic thinking).
+Seven on-device activities:
+- **Phonics Quest** — seven sound worlds of phonics mini-games with on-device phoneme audio.
+- **Story Builder** — pick a hero/place/object/mood; the app weaves a twice-branching story.
+- **Code Puzzles** — sequence arrows and Scratch-style repeat loops to walk a robot to the goal.
+- **Escape Room** — five walk-around puzzle rooms (SwiftUI Canvas port of the Android LibGDX game's solo mode).
+- **Art Studio** — compose an on-device picture, then solve it as a tap-to-place jigsaw.
+- **Talking Buddy** — rule-based offline chat pal with speech synthesis.
 - **Brain Arcade** — eight quick solo card games (SwiftUI port of the Android arcade's solo subset).
 
 Progress is a simple star tally persisted locally in `UserDefaults` via

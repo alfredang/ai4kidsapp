@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Home screen — a bright, friendly grid of the four learning activities plus a
+/// Home screen — a bright, friendly grid of the seven learning activities plus a
 /// running star total and a small Parents' Corner. Tapping a card opens that
 /// activity full-screen.
 struct RootView: View {
@@ -107,8 +107,10 @@ private struct ActivityHost: View {
         switch activity {
         case .phonics: PhonicsView()
         case .story:   StoryBuilderView()
-        case .buddy:   TalkingBuddyView()
         case .code:    CodePuzzlesView()
+        case .escape:  EscapeRoomView()
+        case .art:     ArtStudioView()
+        case .buddy:   TalkingBuddyView()
         case .brain:   BrainArcadeView()
         }
     }
