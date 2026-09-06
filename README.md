@@ -9,8 +9,10 @@
 [![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20iPadOS%2018%2B-007AFF?logo=apple&logoColor=white)](https://www.apple.com/ios/)
 [![Swift](https://img.shields.io/badge/Swift-6.0-F05138?logo=swift&logoColor=white)](https://swift.org)
 [![SwiftUI](https://img.shields.io/badge/SwiftUI-native-0A84FF?logo=swift&logoColor=white)](https://developer.apple.com/xcode/swiftui/)
-[![App Store](https://img.shields.io/badge/App%20Store-In%20Review-blue?logo=appstore&logoColor=white)](https://appstoreconnect.apple.com)
+[![App Store](https://img.shields.io/badge/App%20Store-Download-0D96F6?logo=appstore&logoColor=white)](https://apps.apple.com/app/ai4kids/id6780267161)
 [![Privacy](https://img.shields.io/badge/data%20collected-none-34C759)](#-privacy)
+
+**[⬇️ Download on the App Store](https://apps.apple.com/app/ai4kids/id6780267161)**
 
 Inspired by the [AI Kids Academy](https://ai4kids.tertiarycourses.com.sg/) programme by Tertiary Infotech.
 
@@ -20,19 +22,22 @@ Inspired by the [AI Kids Academy](https://ai4kids.tertiarycourses.com.sg/) progr
 
 ## ✨ Overview
 
-**AI4Kids** is a bright, friendly **universal app (iPhone + iPad)** for young learners (ages 4–16), with layouts that adapt to each screen size. It bundles four self-contained learning activities that run **entirely on-device** — no internet, no accounts, no ads, and **no data collection** — so children can explore safely on their own and parents can relax.
+**AI4Kids** is a bright, friendly **universal app (iPhone + iPad)** for young learners (ages 4–16), with layouts that adapt to each screen size. It bundles seven self-contained learning activities that run **entirely on-device** — no internet, no accounts, no ads, and **no data collection** — so children can explore safely on their own and parents can relax.
 
 <div align="center">
 <img src="docs/screenshots/home.png" width="640" alt="AI4Kids home screen" />
 </div>
 
-## 🎮 The Four Activities
+## 🎮 The Seven Activities
 
 | | Activity | Ages | What kids do |
 |---|---|---|---|
-| 🔤 | **Phonics Playground** | 4–6 | Tap the picture that starts with the shown letter — builds letter/sound recognition. |
-| 📖 | **Story Builder** | 7–9 | Pick a hero, a place, and a magic item; the app weaves an illustrated story, page by page. |
-| 🧩 | **Code Puzzles** | 10–12 | Sequence direction steps to walk a robot to the star — a gentle intro to algorithmic thinking. |
+| 🔤 | **Phonics Quest** | 4–6 | Seven sound worlds of phonics mini-games with on-device phoneme audio. |
+| 📖 | **Story Builder** | 7–9 | Pick a hero, place, object and mood; the app weaves a twice-branching story. |
+| 🧩 | **Code Puzzles** | 10–12 | Sequence arrows and Scratch-style repeat loops to walk a robot to the goal. |
+| 🚪 | **Escape Room** | 8+ | Five walk-around puzzle rooms full of clues, keys and locked doors. |
+| 🎨 | **Art Studio** | All | Compose an on-device picture, then solve it as a tap-to-place jigsaw. |
+| 💬 | **Talking Buddy** | All | A rule-based offline chat pal that talks back with speech synthesis. |
 | 🕹 | **Brain Arcade** | All | Eight quick solo card games — matching, memory, sums and sorting fun. |
 
 Every win earns ⭐️ stars, tracked locally and celebrated with confetti.
@@ -63,7 +68,7 @@ SwiftUI Views (one per activity)  ─>  ProgressStore (@Observable, UserDefaults
 ```
 
 - **`App/`** — entry point, `RootView` (home grid + Parents' Corner), `Theme` (kid palette + helpers)
-- **`Models/Activity.swift`** — the four activities and their card metadata
+- **`Models/Activity.swift`** — the seven activities and their card metadata
 - **`Services/ProgressStore.swift`** — the single `@Observable` injected into the environment (the only place that persists)
 - **`Components/SharedUI.swift`** — `KidButton`, `StarBadge`, `CelebrationView`, `CloseButton`
 - **`Views/`** — one self-contained SwiftUI view per activity
@@ -101,7 +106,8 @@ Requirements: **Xcode 26+**, **iPadOS 18.0+** target.
 | **Category** | Education |
 | **Price** | Free |
 | **Age rating** | 4+ |
-| **Status** | Submitted — *Waiting for Review* |
+| **App Store** | [apps.apple.com/app/ai4kids/id6780267161](https://apps.apple.com/app/ai4kids/id6780267161) |
+| **Status** | ✅ Live on the App Store |
 
 Submission is automated via the bundled [`app-store-submission`](.agents/skills/app-store-submission) skill (App Store Connect API + Xcode CLI). See its `SKILL.md` for the full, repeatable workflow.
 
