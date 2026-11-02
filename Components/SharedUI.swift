@@ -23,7 +23,7 @@ struct KidButton: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 10) {
-                if let systemImage { Image(systemName: systemImage) }
+                if let systemImage { SunnyIcon(name: systemImage) }
                 Text(title)
             }
             .font(Theme.rounded(24, .heavy))
@@ -45,7 +45,7 @@ struct StarBadge: View {
     let count: Int
     var body: some View {
         HStack(spacing: 6) {
-            Image(systemName: "star.fill").foregroundStyle(Theme.yellow)
+            SunnyIcon(name: "star.fill").foregroundStyle(Theme.yellow)
             Text("\(count)").font(Theme.rounded(20, .heavy)).foregroundStyle(Theme.ink)
         }
         .padding(.vertical, 8)
@@ -94,7 +94,7 @@ struct CloseButton: View {
     let action: () -> Void
     var body: some View {
         Button(action: action) {
-            Image(systemName: "xmark")
+            SunnyIcon(name: "xmark")
                 .font(.system(size: 22, weight: .heavy))
                 .foregroundStyle(Theme.ink)
                 .padding(14)

@@ -18,6 +18,12 @@ Inspired by the [AI Kids Academy](https://ai4kids.tertiarycourses.com.sg/) progr
 
 </div>
 
+![Sunny AI4Kids home screen](screenshot.png)
+
+Version 1.5 introduces the website’s sunny bookworm, original illustrated controls,
+colourful activity characters, sky-blue and lavender palette, and bundled
+Fraunces / Nunito fonts. All seven activities continue to work offline.
+
 ---
 
 ## ✨ Overview

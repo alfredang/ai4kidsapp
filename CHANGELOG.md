@@ -3,6 +3,18 @@
 All notable changes to the AI4Kids iOS/iPadOS app. The newest entry's bullets
 are the source of truth for the App Store "What's New" notes.
 
+## [1.5] — 2026-11-03 · build 9
+
+### Changed
+- New sunny bookworm app icon and original colourful activity artwork, matching the AI Kids website.
+- Sky-blue and lavender screens, scrapbook borders and larger, friendly Fraunces / Nunito typography.
+- Original illustrated navigation and action icons throughout the activities.
+- All seven learning activities remain fully offline; no account, ads or data collection added.
+
+### App Store submission
+- Submitted 3 November 2026: version 1.5, build 9, confirmed WAITING_FOR_REVIEW in App Store Connect.
+- Five updated iPhone screenshots and four updated iPad screenshots; manual release after approval.
+
 ## [1.2] — 2026-07-21 · build 6
 
 ### Added

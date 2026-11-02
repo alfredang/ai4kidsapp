@@ -15,7 +15,7 @@ enum EscapeGlyph {
                                   Color(red: 0.95, green: 0.45, blue: 0.40)]
 
     static func view(_ index: Int, size: CGFloat = 26) -> some View {
-        Image(systemName: symbols[index % 8])
+        SunnyIcon(name: symbols[index % 8])
             .font(.system(size: size, weight: .bold))
             .foregroundStyle(colors[index % 8])
     }
@@ -43,7 +43,7 @@ struct EscapePuzzlePanel<Content: View>: View {
                         .minimumScaleFactor(0.6)
                     Spacer()
                     Button(action: onClose) {
-                        Image(systemName: "xmark")
+                        SunnyIcon(name: "xmark")
                             .font(.system(size: 18, weight: .heavy))
                             .foregroundStyle(.white)
                             .padding(10)
@@ -278,7 +278,7 @@ struct EscapeCipherView: View {
                     }
                 }
                 Text("The message:")
-                    .font(Theme.rounded(16, .semibold)).foregroundStyle(Theme.ink.opacity(0.6))
+                    .font(Theme.rounded(16, .semibold)).foregroundStyle(Theme.ink.opacity(0.85))
                 HStack(spacing: 10) {
                     ForEach(Array(answer.enumerated()), id: \.offset) { _, letter in
                         EscapeGlyph.view(glyphOf[letter] ?? 0, size: 30)
@@ -361,7 +361,7 @@ struct EscapeWordSearchView: View {
                 if !powered {
                     Text("The display is dark. Solve the three machines to power it up! 🔌")
                         .font(Theme.rounded(19, .semibold))
-                        .foregroundStyle(Theme.ink.opacity(0.7))
+                        .foregroundStyle(Theme.ink.opacity(0.85))
                         .multilineTextAlignment(.center)
                 }
                 HStack(spacing: 10) {
@@ -740,7 +740,7 @@ struct EscapeFairView: View {
                 onSolved()
             }
         } label: {
-            Image(systemName: symbol)
+            SunnyIcon(name: symbol)
                 .font(.system(size: 34))
                 .foregroundStyle(accent)
         }
@@ -803,7 +803,7 @@ struct EscapeSortView: View {
         } label: {
             Text(label)
                 .font(Theme.rounded(17, .heavy))
-                .foregroundStyle(picked ? .white : Theme.ink.opacity(0.7))
+                .foregroundStyle(picked ? .white : Theme.ink.opacity(0.85))
                 .padding(.vertical, 8).padding(.horizontal, 16)
                 .background(Capsule().fill(picked ? (value ? Theme.green : Theme.red) : Theme.ink.opacity(0.08)))
         }
@@ -906,7 +906,7 @@ struct EscapeMazeView: View {
         Button {
             move(dr: dr, dc: dc)
         } label: {
-            Image(systemName: symbol)
+            SunnyIcon(name: symbol)
                 .font(.system(size: 24, weight: .heavy))
                 .foregroundStyle(.white)
                 .frame(width: 54, height: 54)
@@ -956,7 +956,7 @@ struct EscapeUnscrambleView: View {
                 if hints.indices.contains(wordIndex) && !(done || solved) {
                     Text("Clue: \(hints[wordIndex])")
                         .font(Theme.rounded(17, .semibold))
-                        .foregroundStyle(Theme.ink.opacity(0.7))
+                        .foregroundStyle(Theme.ink.opacity(0.85))
                         .multilineTextAlignment(.center)
                 }
                 // Slots
@@ -1256,10 +1256,10 @@ struct EscapeNoteView: View {
                     Text("The hero's plan:")
                         .font(Theme.rounded(19, .semibold)).foregroundStyle(Theme.ink)
                     VStack(alignment: .leading, spacing: 10) {
-                        Label("Take a core from the Landing", systemImage: "1.circle.fill")
-                        Label("Charge it at its matching Charger (solve the game there first!)",
+                        SunnyLabel("Take a core from the Landing", systemImage: "1.circle.fill")
+                        SunnyLabel("Charge it at its matching Charger (solve the game there first!)",
                               systemImage: "2.circle.fill")
-                        Label("Carry all 3 charged cores to the Suit", systemImage: "3.circle.fill")
+                        SunnyLabel("Carry all 3 charged cores to the Suit", systemImage: "3.circle.fill")
                     }
                     .font(Theme.rounded(18, .semibold))
                     .foregroundStyle(Theme.ink)
@@ -1268,7 +1268,7 @@ struct EscapeNoteView: View {
                         .fill(Color(red: 0.96, green: 0.92, blue: 0.82)))
                 case .none:
                     Text("Nothing useful here…")
-                        .font(Theme.rounded(18, .semibold)).foregroundStyle(Theme.ink.opacity(0.6))
+                        .font(Theme.rounded(18, .semibold)).foregroundStyle(Theme.ink.opacity(0.85))
                 }
             }
         }

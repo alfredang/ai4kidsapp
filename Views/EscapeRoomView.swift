@@ -432,7 +432,7 @@ struct EscapeRoomView: View {
                 }
                 Text("Pick a room, walk around with the joystick, solve every puzzle and escape!")
                     .font(Theme.rounded(19, .semibold))
-                    .foregroundStyle(Theme.ink.opacity(0.7))
+                    .foregroundStyle(Theme.ink.opacity(0.85))
                     .multilineTextAlignment(.center)
                 ForEach(EscapeContent.levels) { level in
                     Button { game = EscapeGame(level: level) } label: {
@@ -446,11 +446,11 @@ struct EscapeRoomView: View {
                                     .font(Theme.rounded(23, .heavy)).foregroundStyle(Theme.ink)
                                 Text(level.blurb)
                                     .font(Theme.rounded(16, .medium))
-                                    .foregroundStyle(Theme.ink.opacity(0.6))
+                                    .foregroundStyle(Theme.ink.opacity(0.85))
                                     .multilineTextAlignment(.leading)
                             }
                             Spacer()
-                            Image(systemName: "chevron.right")
+                            SunnyIcon(name: "chevron.right")
                                 .font(.system(size: 20, weight: .bold))
                                 .foregroundStyle(level.accent)
                         }

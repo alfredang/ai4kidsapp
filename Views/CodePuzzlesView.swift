@@ -143,7 +143,7 @@ struct CodePuzzlesView: View {
             }
             Text("Pick a puzzle! Clear one to unlock the next.")
                 .font(Theme.rounded(20, .semibold))
-                .foregroundStyle(Theme.ink.opacity(0.7))
+                .foregroundStyle(Theme.ink.opacity(0.85))
             HStack(spacing: 20) {
                 ForEach(Self.levels.indices, id: \.self) { i in
                     levelChip(i)
@@ -169,9 +169,9 @@ struct CodePuzzlesView: View {
             VStack(spacing: 6) {
                 if unlocked {
                     Text("\(i + 1)").font(Theme.display(34)).foregroundStyle(.white)
-                    if done { Image(systemName: "star.fill").foregroundStyle(Theme.yellow) }
+                    if done { SunnyIcon(name: "star.fill").foregroundStyle(Theme.yellow) }
                 } else {
-                    Image(systemName: "lock.fill")
+                    SunnyIcon(name: "lock.fill")
                         .font(.system(size: 30, weight: .bold)).foregroundStyle(.white)
                 }
             }

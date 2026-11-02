@@ -42,7 +42,7 @@ private struct HearButton: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 6) {
-                Image(systemName: "speaker.wave.2.fill").font(.system(size: 16, weight: .bold))
+                SunnyIcon(name: "speaker.wave.2.fill").font(.system(size: 16, weight: .bold))
                 Text("Hear it").font(Theme.rounded(14, .bold))
             }
             .foregroundStyle(color)
@@ -62,7 +62,7 @@ private struct SpeakerChip: View {
 
     var body: some View {
         Button(action: action) {
-            Image(systemName: "speaker.wave.2.fill")
+            SunnyIcon(name: "speaker.wave.2.fill")
                 .font(.system(size: 15, weight: .bold))
                 .foregroundStyle(color)
                 .padding(.vertical, 7)
@@ -151,7 +151,7 @@ struct PopPhonemeGame: View {
 
             Text("Hear each sound, then pick the one it starts with!")
                 .font(Theme.rounded(17, .semibold))
-                .foregroundStyle(Theme.ink.opacity(0.7))
+                .foregroundStyle(Theme.ink.opacity(0.85))
                 .multilineTextAlignment(.center)
 
             HStack(spacing: 12) {
@@ -273,7 +273,7 @@ struct BuildWordGame: View {
         VStack(spacing: 18) {
             Text("Tap the letters in order to build the word!")
                 .font(Theme.rounded(18, .semibold))
-                .foregroundStyle(Theme.ink.opacity(0.7))
+                .foregroundStyle(Theme.ink.opacity(0.85))
                 .multilineTextAlignment(.center)
 
             VStack(spacing: 10) {
@@ -440,7 +440,7 @@ struct RhymeGame: View {
         VStack(spacing: 18) {
             Text("Which word rhymes?")
                 .font(Theme.rounded(18, .semibold))
-                .foregroundStyle(Theme.ink.opacity(0.7))
+                .foregroundStyle(Theme.ink.opacity(0.85))
 
             VStack(spacing: 8) {
                 Text(round.emoji).font(.system(size: 72))
@@ -562,7 +562,7 @@ struct ListenFindGame: View {
         VStack(spacing: 18) {
             Text("Listen, then tap the word you hear!")
                 .font(Theme.rounded(18, .semibold))
-                .foregroundStyle(Theme.ink.opacity(0.7))
+                .foregroundStyle(Theme.ink.opacity(0.85))
                 .multilineTextAlignment(.center)
 
             // Big "listen" card (no word shown — they must listen).
@@ -570,7 +570,7 @@ struct ListenFindGame: View {
                 Button {
                     audio.speak(round.word)
                 } label: {
-                    Image(systemName: "speaker.wave.2.fill")
+                    SunnyIcon(name: "speaker.wave.2.fill")
                         .font(.system(size: 44, weight: .bold))
                         .foregroundStyle(.white)
                         .frame(width: 96, height: 96)
@@ -701,7 +701,7 @@ struct BlendGame: View {
         VStack(spacing: 18) {
             Text("Blend the sounds, then tap the picture!")
                 .font(Theme.rounded(18, .semibold))
-                .foregroundStyle(Theme.ink.opacity(0.7))
+                .foregroundStyle(Theme.ink.opacity(0.85))
                 .multilineTextAlignment(.center)
 
             // Tap a dot to hear that sound alone, or "Blend it" to hear them
@@ -712,7 +712,7 @@ struct BlendGame: View {
                         Button {
                             Task { await audio.play(sounds[i]) }
                         } label: {
-                            Image(systemName: "speaker.wave.2.fill")
+                            SunnyIcon(name: "speaker.wave.2.fill")
                                 .font(.system(size: 24, weight: .bold))
                                 .foregroundStyle(color)
                                 .frame(width: 64, height: 64)
@@ -849,7 +849,7 @@ struct DigraphGame: View {
         VStack(spacing: 18) {
             Text("Which two letters make this sound?")
                 .font(Theme.rounded(18, .semibold))
-                .foregroundStyle(Theme.ink.opacity(0.7))
+                .foregroundStyle(Theme.ink.opacity(0.85))
                 .multilineTextAlignment(.center)
 
             // Big listen button for the target digraph sound (no word — the
@@ -858,7 +858,7 @@ struct DigraphGame: View {
                 Button {
                     Task { await audio.play(round.sound) }
                 } label: {
-                    Image(systemName: "speaker.wave.2.fill")
+                    SunnyIcon(name: "speaker.wave.2.fill")
                         .font(.system(size: 44, weight: .bold))
                         .foregroundStyle(.white)
                         .frame(width: 96, height: 96)

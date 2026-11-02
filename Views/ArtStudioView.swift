@@ -43,7 +43,7 @@ struct ArtStudioView: View {
                 }
                 Text("Pick a picture to make, then turn it into a puzzle! 🧩")
                     .font(Theme.rounded(20, .semibold))
-                    .foregroundStyle(Theme.ink.opacity(0.7))
+                    .foregroundStyle(Theme.ink.opacity(0.85))
                     .multilineTextAlignment(.center)
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: compact ? 150 : 200), spacing: 16)],
                           spacing: 16) {
@@ -242,7 +242,7 @@ struct JigsawBoardView: View {
                             .font(Theme.rounded(20, .bold)).foregroundStyle(Theme.ink.opacity(0.5))
                         HStack(spacing: 2) {
                             ForEach(0..<d.stars, id: \.self) { _ in
-                                Image(systemName: "star.fill").foregroundStyle(Theme.yellow)
+                                SunnyIcon(name: "star.fill").foregroundStyle(Theme.yellow)
                             }
                         }
                     }
@@ -275,7 +275,7 @@ struct JigsawBoardView: View {
                     Text("\(d.id) puzzle").font(Theme.display(26)).foregroundStyle(Theme.ink)
                     Spacer()
                     Button { peeking.toggle() } label: {
-                        Image(systemName: peeking ? "eye.fill" : "eye")
+                        SunnyIcon(name: peeking ? "eye.fill" : "eye")
                             .font(.system(size: 22, weight: .bold))
                             .foregroundStyle(Theme.ink)
                             .padding(14)

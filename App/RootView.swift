@@ -24,7 +24,7 @@ struct RootView: View {
             Theme.background.ignoresSafeArea()
 
             ScrollView {
-                VStack(spacing: 28) {
+                VStack(spacing: 20) {
                     header
                     LazyVGrid(columns: columns, spacing: 24) {
                         ForEach(Activity.allCases) { activity in
@@ -73,22 +73,23 @@ struct RootView: View {
 
     private var header: some View {
         HStack(alignment: .center) {
+            Image("kid_sunny_logo").resizable().scaledToFit().frame(width: compact ? 66 : 90, height: compact ? 66 : 90)
             VStack(alignment: .leading, spacing: 4) {
-                Text("AI4Kids")
+                Text("AI Kids")
                     .font(Theme.display(compact ? 38 : 56))
                     .foregroundStyle(Theme.purple)
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
-                Text("Play. Learn. Create.")
+                Text("Little minds. Big ideas.")
                     .font(Theme.rounded(compact ? 16 : 22, .semibold))
-                    .foregroundStyle(Theme.ink.opacity(0.7))
+                    .foregroundStyle(Theme.ink.opacity(0.85))
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
             }
             Spacer()
             StarBadge(count: progress.totalStars)
             Button { gatePassed = false; showParents = true } label: {
-                Image(systemName: "person.2.fill")
+                SunnyIcon(name: "person.2.fill")
                     .font(.system(size: 22, weight: .bold))
                     .foregroundStyle(Theme.ink)
                     .padding(14)
@@ -96,6 +97,7 @@ struct RootView: View {
                     .softShadow()
             }
             .buttonStyle(.plain)
+            .accessibilityLabel("Open Parents’ Corner")
         }
     }
 }
@@ -124,35 +126,25 @@ struct ActivityCard: View {
 
     var body: some View {
         Button(action: action) {
-            VStack(alignment: .leading, spacing: 14) {
-                HStack {
-                    Image(systemName: activity.symbol)
-                        .font(.system(size: 44, weight: .bold))
-                        .foregroundStyle(.white)
-                        .frame(width: 88, height: 88)
-                        .background(Circle().fill(activity.color))
-                    Spacer()
-                    Text(activity.ageBand)
-                        .font(Theme.rounded(15, .bold))
-                        .foregroundStyle(activity.color)
-                        .padding(.vertical, 6).padding(.horizontal, 12)
-                        .background(Capsule().fill(activity.color.opacity(0.15)))
+            HStack(spacing: 18) {
+                Image(activity.artwork).resizable().scaledToFit()
+                    .frame(width: 104, height: 112)
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 7) {
+                    Text(activity.ageBand).font(Theme.rounded(17, .bold)).foregroundStyle(activity.color)
+                    Text(activity.title).font(Theme.display(27)).foregroundStyle(activity.color)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(activity.subtitle).font(Theme.rounded(18, .medium)).foregroundStyle(Theme.ink.opacity(0.9))
+                        .fixedSize(horizontal: false, vertical: true)
+                    HStack(spacing: 5) {
+                        SunnyIcon(name: "star.fill")
+                        Text("\(stars) stars").font(Theme.rounded(16, .bold)).foregroundStyle(Theme.ink)
+                    }
                 }
-                Text(activity.title)
-                    .font(Theme.rounded(28, .heavy))
-                    .foregroundStyle(Theme.ink)
-                Text(activity.subtitle)
-                    .font(Theme.rounded(18, .medium))
-                    .foregroundStyle(Theme.ink.opacity(0.6))
-                HStack(spacing: 6) {
-                    Image(systemName: "star.fill").foregroundStyle(Theme.yellow)
-                    Text("\(stars) stars")
-                        .font(Theme.rounded(16, .bold))
-                        .foregroundStyle(Theme.ink.opacity(0.7))
-                }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(24)
-            .frame(maxWidth: .infinity, minHeight: 230, alignment: .topLeading)
+            .padding(20)
+            .frame(maxWidth: .infinity, minHeight: 175, alignment: .leading)
             .kidCard()
         }
         .buttonStyle(PressableStyle())
@@ -169,9 +161,9 @@ struct ParentsCornerView: View {
         NavigationStack {
             List {
                 Section("About AI4Kids") {
-                    Label("Plays fully offline — no internet needed", systemImage: "wifi.slash")
-                    Label("No login, no ads, no data collected", systemImage: "hand.raised.fill")
-                    Label("Designed for ages 4–16", systemImage: "figure.child")
+                    SunnyLabel("Plays fully offline — no internet needed", systemImage: "wifi.slash")
+                    SunnyLabel("No login, no ads, no data collected", systemImage: "hand.raised.fill")
+                    SunnyLabel("Designed for ages 4–16", systemImage: "figure.child")
                 }
                 Section("Progress") {
                     HStack {
@@ -180,7 +172,7 @@ struct ParentsCornerView: View {
                         Text("\(progress.totalStars)").bold()
                     }
                     Button(role: .destructive) { confirmReset = true } label: {
-                        Label("Reset all progress", systemImage: "arrow.counterclockwise")
+                        SunnyLabel("Reset all progress", systemImage: "arrow.counterclockwise")
                     }
                 }
             }

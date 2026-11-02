@@ -39,7 +39,17 @@ enum Activity: String, CaseIterable, Identifiable, Sendable {
         }
     }
 
-    /// SF Symbol shown on the card.
+    var artwork: String {
+        switch self {
+        case .story: return "friend_story"
+        case .art: return "friend_art"
+        case .code, .brain: return "friend_maths"
+        case .escape, .buddy: return "friend_science"
+        case .phonics: return "kid_wand"
+        }
+    }
+
+    /// Semantic identifier mapped to original site artwork.
     var symbol: String {
         switch self {
         case .phonics: return "textformat.abc"

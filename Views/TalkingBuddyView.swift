@@ -138,7 +138,7 @@ struct TalkingBuddyView: View {
             Button {
                 send(draft)
             } label: {
-                Image(systemName: "paperplane.fill")
+                SunnyIcon(name: "paperplane.fill")
                     .font(.system(size: 22, weight: .heavy))
                     .foregroundStyle(.white)
                     .padding(16)

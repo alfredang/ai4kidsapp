@@ -97,7 +97,7 @@ private func toggle(_ set: inout Set<Int>, _ idx: Int, max: Int) {
 }
 
 private func sectionLabel(_ text: String) -> some View {
-    Text(text).font(Theme.rounded(14, .bold)).foregroundStyle(Theme.ink.opacity(0.6))
+    Text(text).font(Theme.rounded(14, .bold)).foregroundStyle(Theme.ink.opacity(0.85))
         .frame(maxWidth: .infinity, alignment: .leading)
 }
 
@@ -203,7 +203,7 @@ struct NumberHuntBoard: View {
         VStack(spacing: 14) {
             TargetChip(label: "🎯 Target", value: engine.target, color: Theme.blue)
             Text("Pick 1 card = target, or 2 that add/subtract to it")
-                .font(Theme.rounded(13, .medium)).foregroundStyle(Theme.ink.opacity(0.6))
+                .font(Theme.rounded(13, .medium)).foregroundStyle(Theme.ink.opacity(0.85))
                 .multilineTextAlignment(.center)
             HandRow(hand: engine.hand, selected: picked, enabled: true) { toggle(&picked, $0, max: 2) }
             if let err = engine.error { ErrorChip(err) }
@@ -239,7 +239,7 @@ struct BeatDieBoard: View {
                 KidButton(title: "Roll the die", color: Theme.green) { engine.roll() }
             } else {
                 Text("Discard 1–2 cards adding up to at least \(engine.die!)")
-                    .font(Theme.rounded(13, .medium)).foregroundStyle(Theme.ink.opacity(0.6))
+                    .font(Theme.rounded(13, .medium)).foregroundStyle(Theme.ink.opacity(0.85))
                     .multilineTextAlignment(.center)
                 HandRow(hand: engine.hand, selected: picked, enabled: true) { toggle(&picked, $0, max: 2) }
                 HStack(spacing: 10) {
@@ -345,14 +345,14 @@ struct AnimalCountBoard: View {
                     Text("🏁").font(.system(size: 48))
                     Text("Final Round!").font(Theme.rounded(24, .black)).foregroundStyle(Theme.ink)
                     Text("Just one animal left — \(engine.targetAnimal). Get this card right to win!")
-                        .font(Theme.rounded(15, .medium)).foregroundStyle(Theme.ink.opacity(0.6))
+                        .font(Theme.rounded(15, .medium)).foregroundStyle(Theme.ink.opacity(0.85))
                         .multilineTextAlignment(.center)
                     KidButton(title: "I'm ready! ▶", color: Theme.orange) { ready = true }
                 }
                 .padding(24).frame(maxWidth: .infinity).kidCard()
             } else {
                 HStack(spacing: 8) {
-                    Text("Find the card with").font(Theme.rounded(15, .medium)).foregroundStyle(Theme.ink.opacity(0.6))
+                    Text("Find the card with").font(Theme.rounded(15, .medium)).foregroundStyle(Theme.ink.opacity(0.85))
                     Text("\(engine.targetCount) \(engine.targetAnimal)")
                         .font(Theme.rounded(20, .black)).foregroundStyle(Theme.orange)
                         .padding(.horizontal, 10).padding(.vertical, 4)
@@ -361,7 +361,7 @@ struct AnimalCountBoard: View {
                 TimerBar(fraction: remaining / max(engine.roundSeconds, 0.001), color: timerColor)
                 Text("⏱ \(Int(remaining.rounded(.up)))s" + (engine.wrongPicks.isEmpty ? "" : "   ❌ no more chances — choose carefully!"))
                     .font(Theme.rounded(14, .bold))
-                    .foregroundStyle(urgent || !engine.wrongPicks.isEmpty ? Theme.red : Theme.ink.opacity(0.6))
+                    .foregroundStyle(urgent || !engine.wrongPicks.isEmpty ? Theme.red : Theme.ink.opacity(0.85))
                     .multilineTextAlignment(.center)
                 emojiCardGrid(engine.cards.map { ($0.id, $0.counts.flatMap { a, n in Array(repeating: a, count: n) }) },
                               wrong: Set(engine.wrongPicks), shuffleSeeded: true) { engine.pick($0) }
@@ -418,7 +418,7 @@ struct OddOneOutBoard: View {
             TimerBar(fraction: remaining / max(engine.roundSeconds, 0.001), color: timerColor)
             Text("⏱ \(Int(remaining.rounded(.up)))s" + (engine.wrongPicks.isEmpty ? "" : "   ❌ one mistake — look closely!"))
                 .font(Theme.rounded(14, .bold))
-                .foregroundStyle(urgent || !engine.wrongPicks.isEmpty ? Theme.red : Theme.ink.opacity(0.6))
+                .foregroundStyle(urgent || !engine.wrongPicks.isEmpty ? Theme.red : Theme.ink.opacity(0.85))
                 .multilineTextAlignment(.center).frame(maxWidth: .infinity)
             emojiCardGrid(engine.cards.map { ($0.id, $0.counts.flatMap { a, n in Array(repeating: a, count: n) }) },
                           wrong: Set(engine.wrongPicks), shuffleSeeded: false) { engine.pick($0) }

@@ -90,7 +90,7 @@ private struct StageNode: View {
                     if unlocked {
                         Text(stage.emoji).font(.system(size: 32))
                     } else {
-                        Image(systemName: "lock.fill")
+                        SunnyIcon(name: "lock.fill")
                             .font(.system(size: 24, weight: .bold))
                             .foregroundStyle(.white)
                     }
@@ -108,7 +108,7 @@ private struct StageNode: View {
                     if unlocked {
                         HStack(spacing: 2) {
                             ForEach(0..<3, id: \.self) { s in
-                                Image(systemName: "star.fill")
+                                SunnyIcon(name: "star.fill")
                                     .font(.system(size: 16))
                                     .foregroundStyle(s < stars ? Theme.yellow : Theme.ink.opacity(0.15))
                             }
@@ -258,7 +258,7 @@ struct PhonicsStageHost: View {
                 VStack(spacing: 14) {
                     HStack(spacing: 6) {
                         ForEach(0..<3, id: \.self) { s in
-                            Image(systemName: "star.fill")
+                            SunnyIcon(name: "star.fill")
                                 .font(.system(size: 36))
                                 .foregroundStyle(s < stars ? Theme.yellow : Theme.ink.opacity(0.15))
                         }

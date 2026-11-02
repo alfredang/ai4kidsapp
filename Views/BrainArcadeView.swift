@@ -109,7 +109,7 @@ private struct GameCard: View {
                         .background(Capsule().fill(game.accent.opacity(0.15)))
                 }
                 Text(game.title).font(Theme.rounded(20, .black)).foregroundStyle(Theme.ink)
-                Text(game.blurb).font(Theme.rounded(14, .medium)).foregroundStyle(Theme.ink.opacity(0.6))
+                Text(game.blurb).font(Theme.rounded(14, .medium)).foregroundStyle(Theme.ink.opacity(0.85))
                     .fixedSize(horizontal: false, vertical: true)
                 Spacer(minLength: 4)
                 Text("Play ▶").font(Theme.rounded(15, .black)).foregroundStyle(.white)
@@ -182,7 +182,7 @@ private struct ArcadePlayer<E: ArcadeEngine, Board: View>: View {
                 ForEach(Array(game.how.enumerated()), id: \.offset) { i, line in
                     HStack(alignment: .top, spacing: 8) {
                         Text("\(i + 1).").font(Theme.rounded(14, .bold)).foregroundStyle(game.accent)
-                        Text(line).font(Theme.rounded(14, .medium)).foregroundStyle(Theme.ink.opacity(0.7))
+                        Text(line).font(Theme.rounded(14, .medium)).foregroundStyle(Theme.ink.opacity(0.85))
                     }
                 }
             }
@@ -222,13 +222,13 @@ private struct ArcadePlayer<E: ArcadeEngine, Board: View>: View {
             Text(won ? "You did it!" : "So close!")
                 .font(Theme.rounded(24, .black)).foregroundStyle(Theme.ink)
             if won {
-                Text("⏱ \(ArcadeBest.format(elapsed))").font(Theme.rounded(16, .bold)).foregroundStyle(Theme.ink.opacity(0.6))
+                Text("⏱ \(ArcadeBest.format(elapsed))").font(Theme.rounded(16, .bold)).foregroundStyle(Theme.ink.opacity(0.85))
                 if let best = ArcadeBest.best(game.slug) {
                     Text("🏆 Best: \(ArcadeBest.format(best))").font(Theme.rounded(15, .bold)).foregroundStyle(Theme.orange)
                 }
                 HStack(spacing: 6) {
-                    Image(systemName: "star.fill").foregroundStyle(Theme.yellow)
-                    Text("+\(Self.starsForWin) stars").font(Theme.rounded(16, .bold)).foregroundStyle(Theme.ink.opacity(0.7))
+                    SunnyIcon(name: "star.fill").foregroundStyle(Theme.yellow)
+                    Text("+\(Self.starsForWin) stars").font(Theme.rounded(16, .bold)).foregroundStyle(Theme.ink.opacity(0.85))
                 }
             }
             KidButton(title: "Play again ▶", color: Theme.pink) { reset() }

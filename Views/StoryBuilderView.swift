@@ -163,7 +163,7 @@ struct StoryBuilderView: View {
                 } else {
                     HStack(spacing: 16) {
                         Text("Page \(pageIndex + 1) of \(pageCount)")
-                            .font(Theme.rounded(18, .bold)).foregroundStyle(Theme.ink.opacity(0.6))
+                            .font(Theme.rounded(18, .bold)).foregroundStyle(Theme.ink.opacity(0.85))
                         Spacer()
                         KidButton(title: pageIndex == pages.count - 1 ? "The End!" : "Next",
                                   systemImage: "arrow.right", color: Theme.orange) {
@@ -191,7 +191,7 @@ struct StoryBuilderView: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
                 Spacer()
-                Image(systemName: "arrow.right")
+                SunnyIcon(name: "arrow.right")
                     .font(.system(size: 20, weight: .heavy))
                     .foregroundStyle(.white)
             }
