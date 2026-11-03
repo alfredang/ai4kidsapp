@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-AI4Kids — a native **iPad-only** (iPadOS 18+) educational activity app for young
+AI4Kids — a native **universal iPhone + iPad** (iOS/iPadOS 18+) educational activity app for young
 learners (ages 4–16), inspired by the AI Kids Academy programme
 (<https://ai4kids.tertiarycourses.com.sg/>). SwiftUI, Swift 6 with **complete strict
 concurrency** and `@MainActor` isolation. The seven play activities run **fully offline**
