@@ -16,7 +16,10 @@ are the source of truth for the App Store "What's New" notes.
 
 ### Privacy
 - The seven play activities remain fully offline. Only text typed in an AI Workshop is sent to DeepSeek, using the parent's own key.
-- Version 1.5 (build 9) was withdrawn from review and replaced by this release.
+- App Store privacy label: "Data Not Linked to You → Other User Content (App Functionality)". Left the Kids Category (age band cleared).
+
+### App Store submission
+- 3 November 2026: 1.5 (build 9) was already approved and was released. Then 1.6 (build 10) was submitted and confirmed WAITING_FOR_REVIEW.
 
 ## [1.5] — 2026-11-03 · build 9
 
