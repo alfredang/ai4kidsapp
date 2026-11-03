@@ -2,8 +2,8 @@ import SwiftUI
 import Observation
 
 /// App-wide progress: stars earned per activity, persisted locally to
-/// `UserDefaults` (Codable JSON). No accounts, no network, no personal data —
-/// just a fun running tally so kids see their stars grow.
+/// `UserDefaults` (Codable JSON). No accounts and no personal data — just a fun
+/// running tally so kids see their stars grow.
 @MainActor
 @Observable
 final class ProgressStore {
@@ -27,10 +27,16 @@ final class ProgressStore {
     /// Stars earned in a single activity.
     func stars(for activity: Activity) -> Int { stars[activity.id, default: 0] }
 
+    /// Stars earned under an arbitrary key (e.g. an AI Workshop's `starKey`).
+    func stars(forKey key: String) -> Int { stars[key, default: 0] }
+
     /// Award `count` stars for an activity and persist immediately.
-    func award(_ count: Int, to activity: Activity) {
+    func award(_ count: Int, to activity: Activity) { award(count, key: activity.id) }
+
+    /// Award `count` stars under an arbitrary key and persist immediately.
+    func award(_ count: Int, key: String) {
         guard count > 0 else { return }
-        stars[activity.id, default: 0] += count
+        stars[key, default: 0] += count
         persist()
     }
 

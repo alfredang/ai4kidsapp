@@ -3,6 +3,21 @@
 All notable changes to the AI4Kids iOS/iPadOS app. The newest entry's bullets
 are the source of truth for the App Store "What's New" notes.
 
+## [1.6] — 2026-11-03 · build 10
+
+### Added
+- AI Workshops: Storybook Studio, Mini Maker Studio, Maths Detectives and Science Explorers, powered by DeepSeek.
+- Grown-up login: a parent sets a PIN and adds their own DeepSeek API key before children can use the AI Workshops.
+- Kid-safety filters keep personal details private, and sessions lock automatically.
+- Parents' Corner can lock the AI Workshops, replace the key, change the PIN or turn AI off.
+
+### Changed
+- Warm cream colours and website-matched purple, teal and sunny-yellow styling.
+
+### Privacy
+- The seven play activities remain fully offline. Only text typed in an AI Workshop is sent to DeepSeek, using the parent's own key.
+- Version 1.5 (build 9) was withdrawn from review and replaced by this release.
+
 ## [1.5] — 2026-11-03 · build 9
 
 ### Changed

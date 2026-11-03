@@ -9,28 +9,31 @@ enum DeviceKind {
 /// Shared, kid-friendly visual styling tokens. Bright, rounded, high-contrast —
 /// tuned for young learners (ages 4–16) on iPad.
 enum Theme {
-    // Brand palette (AI4Kids — playful, saturated)
-    static let purple = Color(red: 0.525, green: 0.325, blue: 0.643)
+    // Brand palette — matches the family website (ai4kids.tertiarycourses.com.sg)
+    static let purple = Color(hex: 0x80549F)
+    static let plum = Color(hex: 0x99499B)
     static let pink = Color(red: 0.71, green: 0.235, blue: 0.447)
     static let orange = Color(red: 0.69, green: 0.475, blue: 0.208)
-    static let yellow = Color(red: 1.0, green: 0.855, blue: 0.439)
+    static let yellow = Color(hex: 0xFFDC69)
     static let green = Color(red: 0.22, green: 0.525, blue: 0.424)
     static let blue = Color(red: 0.263, green: 0.557, blue: 0.682)
-    static let teal = Color(red: 0.192, green: 0.529, blue: 0.49)
+    static let teal = Color(hex: 0x268081)
     static let red = Color(red: 0.749, green: 0.302, blue: 0.455)
 
-    static let ink = Color(red: 0.314, green: 0.365, blue: 0.529)
+    static let ink = Color(hex: 0x41467D)
+    static let cream = Color(hex: 0xFFF8EE)
+    static let card = Color(hex: 0xFFFEFA)
+    static let inputBorder = Color(hex: 0xC5B6DA)
     static let cardCornerRadius: CGFloat = 28
     static let bigCornerRadius: CGFloat = 36
 
     /// Soft, friendly drop shadow used on cards and buttons.
-    static let softShadow = ShadowStyle(color: Color(red: 0.72, green: 0.65, blue: 0.83).opacity(0.35), radius: 0, x: 3, y: 5)
+    static let softShadow = ShadowStyle(color: Color(hex: 0x41467D).opacity(0.22), radius: 0, x: 0, y: 4)
 
-    /// The app-wide warm background gradient.
+    /// The app-wide warm cream background gradient.
     static var background: LinearGradient {
         LinearGradient(
-            colors: [Color(red: 0.929, green: 0.969, blue: 1.0),
-                     Color(red: 0.957, green: 0.937, blue: 1.0)],
+            colors: [Color(hex: 0xFFF8EE), Color(hex: 0xFFF3DC)],
             startPoint: .topLeading, endPoint: .bottomTrailing)
     }
 
@@ -61,8 +64,17 @@ extension View {
         self
             .background(
                 UnevenRoundedRectangle(topLeadingRadius: cornerRadius, bottomLeadingRadius: cornerRadius - 4, bottomTrailingRadius: cornerRadius + 4, topTrailingRadius: cornerRadius - 8)
-                    .fill(.white))
-            .overlay(UnevenRoundedRectangle(topLeadingRadius: cornerRadius, bottomLeadingRadius: cornerRadius - 4, bottomTrailingRadius: cornerRadius + 4, topTrailingRadius: cornerRadius - 8).stroke(Theme.purple.opacity(0.45), lineWidth: 2))
+                    .fill(Theme.card))
+            .overlay(UnevenRoundedRectangle(topLeadingRadius: cornerRadius, bottomLeadingRadius: cornerRadius - 4, bottomTrailingRadius: cornerRadius + 4, topTrailingRadius: cornerRadius - 8).stroke(Theme.ink.opacity(0.35), lineWidth: 2))
             .softShadow()
+    }
+}
+
+extension Color {
+    /// Builds an opaque colour from a 0xRRGGBB literal (website hex tokens).
+    init(hex: UInt32) {
+        self.init(red: Double((hex >> 16) & 0xFF) / 255,
+                  green: Double((hex >> 8) & 0xFF) / 255,
+                  blue: Double(hex & 0xFF) / 255)
     }
 }

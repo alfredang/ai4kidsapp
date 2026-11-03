@@ -2,14 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- AI4Kids does not track users and collects no data. All progress is
-	     stored locally on device in UserDefaults; there is no network access. -->
+	<!-- AI4Kids does not track users. Progress is stored locally in UserDefaults.
+	     The optional, parent-unlocked AI Workshops send the child's typed messages
+	     to DeepSeek (with the parent's own key) to generate replies; nothing is
+	     stored by the developer and nothing is linked to identity. -->
 	<key>NSPrivacyTracking</key>
 	<false/>
 	<key>NSPrivacyTrackingDomains</key>
 	<array/>
 	<key>NSPrivacyCollectedDataTypes</key>
-	<array/>
+	<array>
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeOtherUserContent</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+			</array>
+		</dict>
+	</array>
 	<!-- Required-reason API declarations. -->
 	<key>NSPrivacyAccessedAPITypes</key>
 	<array>
